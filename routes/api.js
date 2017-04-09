@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 //var accountData = require('../data/axisUScomp.json');
-//var tornadoData = require('../data/');
+var tornadoData = require('../data/tornComp.json');
 var windData = require('../data/windComp.json');
-//var hailData = require('../data/');
+var hailData = require('../data/hailComp.json');
 
 router.get('/', function(req, res, next) {
   //res.render('index', { title: 'Express' });
@@ -25,10 +25,18 @@ router.get('/location-test', function(req, res, next) {
 
 //    var i = 0;
 //    for (i = 0; i < axisUS.length; i++) {
-//        var cur_lat = (number)accountData[i]["LATITUDE"];
-//        var cur_lon = (number)accountData[i]["LONGITUDE"];
+//        var cur_lat = (number)accountData["LATITUDE"][i];
+//        var cur_lon = (number)accountData["LONGITUDE"][i];
 //        if (cur_lat >= lat1 && cur_lat <= lat2 && cur_lon >= lon1 && cur_lon <= lon2) {
-//            new_json += accountData[i];
+//            var cur_json = {"ID":accountData["ID"][i], 
+//                            "PREMIUM":accountData["PREMIUM"][i], 
+//                            "TIV":accountData["TIV"][i], 
+//                            "DED":accountData["DED"][i], 
+//                            "CITY":accountData["CITY"][i], 
+//                            "POSTALCODE":accountData["POSTALCODE"][i]
+//                            "LATITUDE":accountData["LATITUDE"][i]
+//                            "LONGITUDE":accountData["LONGITUDE"][i]};
+//             new_json += cur_json;
 //        }
 //    }
 
@@ -36,21 +44,17 @@ router.get('/location-test', function(req, res, next) {
 // });
 
 router.get('/disasters', function(req, res, next) {
-   // var type = req.params.type;
-   // switch(type){
-   //    case "tornado":
-   //       //res.json(tornadoData);
-   //       break;
-   //    case "wind":
-         res.json(windData);
-   //       return;
-   //    case "hail":
-   //       //res.json(hailData);
-   // }
-   // return next({
-   //    success: false,
-   //    message: "Not valid"
-   // });
+   var type = req.query.type;
+   if(type == "wind")
+      res.json(windData);
+   else if(type == "tornado")
+      res.json(tornadoData);
+   else if(type == "hail")
+      res.json(hailData);
+   return next({
+      success: false,
+      message: "Not valid"
+   });
 });
 
 module.exports = router;
