@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var accountData = require('../data/axisUS.json');
+//var accountData = require('../data/axisUScomp.json');
 //var tornadoData = require('../data/');
 var windData = require('../data/windComp.json');
 //var hailData = require('../data/');
@@ -10,9 +10,9 @@ router.get('/', function(req, res, next) {
   res.json({ "success": true });
 });
 
-// router.get('/location-test', function(req, res, next) {
-//    res.json(axisUS);
-// });
+router.get('/location-test', function(req, res, next) {
+   res.json(axisUS);
+});
 
 // router.post('/location', function(req, res, next) {
 //    var lat1 = req.body.lat1;
@@ -24,9 +24,6 @@ router.get('/', function(req, res, next) {
 //    var new_json;
 
 //    var i = 0;
-//    var lat = 15;
-//    var lon = 16;
-
 //    for (i = 0; i < axisUS.length; i++) {
 //        var cur_lat = (number)accountData[i]["LATITUDE"];
 //        var cur_lon = (number)accountData[i]["LONGITUDE"];
