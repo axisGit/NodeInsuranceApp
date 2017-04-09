@@ -36,17 +36,21 @@ router.get('/location-test', function(req, res, next) {
 // });
 
 router.get('/disasters', function(req, res, next) {
-   var type = req.params.type;
-   switch(type){
-      case "tornado":
-         //res.json(tornadoData);
-         break;
-      case "wind":
+   // var type = req.params.type;
+   // switch(type){
+   //    case "tornado":
+   //       //res.json(tornadoData);
+   //       break;
+   //    case "wind":
          res.json(windData);
-         break;
-      case "hail":
-         //res.json(hailData);
-   }
+   //       return;
+   //    case "hail":
+   //       //res.json(hailData);
+   // }
+   // return next({
+   //    success: false,
+   //    message: "Not valid"
+   // });
 });
 
 module.exports = router;
