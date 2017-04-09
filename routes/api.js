@@ -5,6 +5,7 @@ var tornadoData = require('../data/tornComp.json');
 var windData = require('../data/windComp.json');
 var hailData = require('../data/hailComp.json');
 var earthquakeData = require('../data/earthquakeComp.json');
+//var client = require('../node_modules/twilio/lib')(ACb6ae184fa6b1dbaa041729cb49b375eb, 4dcce31ece33a67e3c37503e333ff5b4);
 
 router.get('/', function(req, res, next) {
   //res.render('index', { title: 'Express' });
@@ -71,23 +72,43 @@ router.get('/disasters', function(req, res, next) {
    });
 });
 
-// router.post('/txt', function(req, res, next) {
-//    var lat = req.body.lat;
-//    var lon = req.body.lon;
 
-//    var accountSid = 'ACb6ae184fa6b1dbaa041729cb49b375eb';
-//    var authToken = '4dcce31ece33a67e3c37503e333ff5b4';
+router.post('/txt', function(req, res, next) {
+   var lat = req.body.lat;
+   var lon = req.body.lon;
 
-//    //require the Twilio module and create a REST client
-//    var client = require('twilio')(ACb6ae184fa6b1dbaa041729cb49b375eb, 4dcce31ece33a67e3c37503e333ff5b4);
+   // var clockw = require('clockwork')({key:'4f89c4e61294732e8d1a466458274d11161d1b9d'});
 
-//    client.messages.create({
-//        to: '3093338561',
-//        from: '3097537022',
-//        body: '"http://maps.google.com/maps?q=&layer=c&cbll=' + lat + ',' + lon + '"',
-//    }, function (err, message) {
-//        console.log(message.sid);
-//    });
-// });
+   // var ins = "http://maps.google.com/maps?q=&layer=c&cbll=";
+   // var lat_lon = lat + ", " + lon;
+   // ins += lat_lon;
+   // clockw.sendSms({ To: '13093338561', Content: ins },
+   //    function(error, resp) {
+   //       if (error) {
+   //          console.log('Something went wrong', error);
+   //       } else {
+   //          console.log('Message sent',resp.responses[0].id);
+   //       }
+   // });
+   // return next({
+   //    success: true,
+   //    message: "Not valid"
+   // });
+   var accountSid = 'ACb6ae184fa6b1dbaa041729cb49b375eb';
+   var authToken = '4dcce31ece33a67e3c37503e333ff5b4';
+
+   //require the Twilio module and create a REST client
+   var client = require('twilio')('ACb6ae184fa6b1dbaa041729cb49b375eb', '4dcce31ece33a67e3c37503e333ff5b4');
+
+   client.messages.create({
+       to: '3093338561',
+       from: '3097537022',
+       body: 'http://maps.google.com/maps?q=&layer=c&cbll=' + lat + ',' + lon,
+   }, function (err, message) {
+       console.log('http://maps.google.com/maps?q=&layer=c&cbll=' + lat + ',' + lon);
+       console.log(message.sid);
+       res.json({ "success": true });
+   });
+});
 
 module.exports = router;
