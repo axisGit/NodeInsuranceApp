@@ -22,6 +22,17 @@ router.post('/location', function(req, res, next) {
    var lat2 = req.body.lat2;
    var lon2 = req.body.lon2;
 
+   if(lat1 > lat2){
+      var temp = lat1;
+      lat1 = lat2;
+      lat2 = temp;
+   }
+   if(lon1 > lon2){
+      var temp = lon1;
+      lon1 = lon2;
+      lon2 = temp;
+   }
+
    console.log("lat1 = " + lat1);
 
    var new_json = {"ID":[], "PREMIUM":[], "TIV":[], "DED":[], "CITY":[], "POSTALCODE":[], "LATITUDE":[], "LONGITUDE":[]};
@@ -59,5 +70,24 @@ router.get('/disasters', function(req, res, next) {
       message: "Not valid"
    });
 });
+
+// router.post('/txt', function(req, res, next) {
+//    var lat = req.body.lat;
+//    var lon = req.body.lon;
+
+//    var accountSid = 'ACb6ae184fa6b1dbaa041729cb49b375eb';
+//    var authToken = '4dcce31ece33a67e3c37503e333ff5b4';
+
+//    //require the Twilio module and create a REST client
+//    var client = require('twilio')(ACb6ae184fa6b1dbaa041729cb49b375eb, 4dcce31ece33a67e3c37503e333ff5b4);
+
+//    client.messages.create({
+//        to: '3093338561',
+//        from: '3097537022',
+//        body: '"http://maps.google.com/maps?q=&layer=c&cbll=' + lat + ',' + lon + '"',
+//    }, function (err, message) {
+//        console.log(message.sid);
+//    });
+// });
 
 module.exports = router;
